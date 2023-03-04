@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo } from "react";
 import { ISelectOption, Select } from "../atoms/inputs";
 import { IConverterProps } from "../../../modules/converter/components";
-import { IConverterController, IConverterFields } from "../../../modules/types/converter";
+import { IConverterController, IConverterFields } from "../../types/converter";
 
 export interface ConverterUIProps extends IConverterFields, IConverterController, IConverterProps {};
 

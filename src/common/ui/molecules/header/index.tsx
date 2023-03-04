@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import './header.css';
-import logo from '../../images/Q-pay.png';
+import logo from '../../../../assets/images/Q-pay.png';
 
 export interface HeaderProps extends PropsWithChildren<{}> { };
 

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { IConverterController } from "../../types/converter";
+import { IConverterController } from "../../../common/types/converter";
 import { convertRates } from "../services/conversions";
 
 export function useConverter(ratesMap: Record<string, number>): IConverterController {

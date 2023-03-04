@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { IConverterFields } from "../../types/converter";
+import { IConverterFields } from "../../../common/types/converter";
 
 export function useConverterFields(ratesMap: Record<string, number>): IConverterFields {
     const defaultValue = Object.keys(ratesMap)[0];
