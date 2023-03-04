@@ -12,7 +12,7 @@ export const Wrapper: FC<HeaderProps> = (props: HeaderProps) =>
 
 export const Content: FC<HeaderProps> = () => (
     <>
-        <div className="header-container">
+        <div className="header-container" style={{ paddingRight: 10 }}>
             <div className="row">
                 <div className="col-6">
                     <Logo />

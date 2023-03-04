@@ -1,9 +1,9 @@
 import { FC, useCallback, useMemo } from "react";
 import { Select } from "../atoms/inputs";
-import { IControllerProps } from "../modules/converter/components";
+import { IConverterProps } from "../modules/converter/components";
 import { IConverterController, IConverterFields } from "../modules/types/converter";
 
-export interface ConverterUIProps extends IConverterFields, IConverterController, IControllerProps {};
+export interface ConverterUIProps extends IConverterFields, IConverterController, IConverterProps {};
 
 export const ConverterUI: FC<ConverterUIProps> = ({
     ratesMap,

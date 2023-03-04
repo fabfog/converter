@@ -6,12 +6,12 @@ import { Error } from "../../../atoms/error";
 import { Loader } from "../../../atoms/loader";
 import { ConverterUI } from "../../../organisms/converter";
 
-export interface IControllerProps {
+export interface IConverterProps {
     ratesMap: Record<string, number>;
     decimals?: number;
 }
 
-export const Converter: FC<IControllerProps> = ({ ratesMap, ...rest }) => {
+export const Converter: FC<IConverterProps> = ({ ratesMap, ...rest }) => {
     // better division between data and business logics hook
     const fields = useConverterFields(ratesMap);
     const converterController = useConverter(ratesMap);
