@@ -2,7 +2,7 @@ import { xmlToObjectRatesTransformer } from "./xmlToObjecRatesTransformer";
 
 export function fetchConversionRates() {
     // TODO move url from hard-coded to env variable
-    return fetch('/stats/eurofxref/eurofxref-daily.xml', {
+    return fetch(process.env.REACT_APP_RATES_URL!, {
         method: 'GET',
         headers: new Headers({
             'Accept': 'application/xml',
