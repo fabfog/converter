@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react"
-import { convertRates } from "../services/conversions";
+import { useState } from "react"
 
 export function useConverter(ratesMap: Record<string, number>) {
     const defaultValue = Object.keys(ratesMap)[0];
@@ -8,15 +7,7 @@ export function useConverter(ratesMap: Record<string, number>) {
     const [currencyTo, setCurrencyTo] = useState<string | null>(defaultValue ?? null);
 
     const [amount, setAmount] = useState(0);
-
-    const convertedAmount = useMemo(() => {
-        console.log('ooo', currencyFrom, currencyTo)
-        if (currencyFrom && currencyTo) {
-            return convertRates(ratesMap, currencyFrom, currencyTo, amount);
-        } else {
-            return null;
-        }
-    }, [ratesMap, currencyFrom, currencyTo, amount])
+    const [convertedAmount, setConvertedAmount] = useState(0);
 
     return {
         amount,
@@ -26,5 +17,6 @@ export function useConverter(ratesMap: Record<string, number>) {
         currencyTo,
         setCurrencyTo,
         convertedAmount,
+        setConvertedAmount,
     }
 }

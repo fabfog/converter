@@ -1,6 +1,7 @@
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useConverter } from "../hooks/useConverter";
 import { useGetRates } from "../hooks/useGetRates";
+import { convertRates } from "../services/conversions";
 import { CurrencySelect } from "./inputs";
 
 /**
@@ -33,6 +34,7 @@ export const Converter: FC<ConverterProps> = ({ ratesMap, decimals = 2 }) => {
         currencyTo,
         setCurrencyTo,
         convertedAmount,
+        setConvertedAmount,
         amount,
         setAmount,
     } = useConverter(ratesMap ?? {});
@@ -43,6 +45,14 @@ export const Converter: FC<ConverterProps> = ({ ratesMap, decimals = 2 }) => {
                 return { value: key, label: key };
             })
     }, [ratesMap]);
+
+    const onSubmit = useCallback(() => {
+        if (currencyFrom && currencyTo) {
+            setConvertedAmount(convertRates(ratesMap, currencyFrom, currencyTo, amount));
+        }
+    }, [ratesMap, currencyFrom, currencyTo, amount]);
+
+    const isSubmitDisabled = !currencyFrom || !currencyTo;
 
     return (
         <div className="row">
@@ -60,6 +70,9 @@ export const Converter: FC<ConverterProps> = ({ ratesMap, decimals = 2 }) => {
                 options={ratesAsOptions}
                 placeholder="to"
             />
+            <div style={{ margin: 'auto 10px' }}>
+                <button disabled={isSubmitDisabled} onClick={onSubmit}>calculate</button>
+            </div>
             <p style={{ marginLeft: 10 }}>
                 {(convertedAmount ?? 0).toFixed(decimals)}
             </p>
