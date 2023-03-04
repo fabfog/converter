@@ -1,7 +1,7 @@
 import { FC, useCallback, useMemo } from "react";
-import { Select } from "../atoms/inputs";
-import { IConverterProps } from "../modules/converter/components";
-import { IConverterController, IConverterFields } from "../modules/types/converter";
+import { ISelectOption, Select } from "../atoms/inputs";
+import { IConverterProps } from "../../../modules/converter/components";
+import { IConverterController, IConverterFields } from "../../../modules/types/converter";
 
 export interface ConverterUIProps extends IConverterFields, IConverterController, IConverterProps {};
 
@@ -17,7 +17,7 @@ export const ConverterUI: FC<ConverterUIProps> = ({
     convertedAmount,
     updateConvertedAmount
 }) => {
-    const ratesAsOptions = useMemo(() => {
+    const ratesAsOptions = useMemo<ISelectOption[]>(() => {
         return Object.keys(ratesMap)
             .map(key => {
                 return { value: key, label: key };

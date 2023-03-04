@@ -2,9 +2,9 @@ import { FC } from "react";
 import { useConverterFields } from "../hooks/useConverterFields";
 import { useConverter } from "../hooks/useConverter";
 import { useGetRates } from "../hooks/useGetRates";
-import { Error } from "../../../atoms/error";
-import { Loader } from "../../../atoms/loader";
-import { ConverterUI } from "../../../organisms/converter";
+import { Error } from "../../../common/ui/atoms/error";
+import { Loader } from "../../../common/ui/atoms/loader";
+import { ConverterUI } from "../../../common/ui/organisms/converter";
 
 export interface IConverterProps {
     ratesMap: Record<string, number>;
