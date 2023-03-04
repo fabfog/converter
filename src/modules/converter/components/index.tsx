@@ -2,9 +2,9 @@ import { FC } from "react";
 import { useConverterFields } from "../hooks/useConverterFields";
 import { useConverter } from "../hooks/useConverter";
 import { useGetRates } from "../hooks/useGetRates";
-import { Error } from "../../atoms/error";
-import { Loader } from "../../atoms/loader";
-import { ConverterUI } from "../../organisms/converter";
+import { Error } from "../../../atoms/error";
+import { Loader } from "../../../atoms/loader";
+import { ConverterUI } from "../../../organisms/converter";
 
 export interface IControllerProps {
     ratesMap: Record<string, number>;
@@ -25,7 +25,6 @@ export const Converter: FC<IControllerProps> = ({ ratesMap, ...rest }) => {
         />
     )
 }
-
 
 export interface AppConverterProps { };
 // not my best naming, but it's just to split API fetch logics from the actual converter

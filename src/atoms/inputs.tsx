@@ -14,9 +14,11 @@ export const Select: FC<SelectProps> = ({
     options,
     ...rest
 }) => {
-    return <select value={value} {...rest}>
-        {options.map(({ value, label, ...restOptionProps }) => (
-            <option value={value} key={value} {...restOptionProps}>{label}</option>
-        ))}
-    </select>
+    return (
+        <select value={value} {...rest}>
+            {options.map(({ value, label, ...restOptionProps }) => (
+                <option value={value} key={value} {...restOptionProps}>{label}</option>
+            ))}
+        </select>
+    );
 }

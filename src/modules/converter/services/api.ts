@@ -1,29 +1,18 @@
+import { xmlToObjectRatesTransformer } from "./xmlToObjecRatesTransformer";
 
 export function fetchConversionRates() {
     // TODO move url from hard-coded to env variable
-    return fetch('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml', {
+    return fetch('/stats/eurofxref/eurofxref-daily.xml', {
         method: 'GET',
         headers: new Headers({
             'Accept': 'application/xml',
-            'content-type': 'application/x-www-form-urlencoded',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Headers': 'Content-Type',
         })
     })
-    .then(response => {
-        console.log('response is', response);
-        return response.text();
-    })
-    .then(text => {
-        console.log('text is', text);
-        return {};
-    })
+    .then(response => response.text())
+    .then(xmlToObjectRatesTransformer)
 }
 
-/* I had problems with the fetch (opaque response, honestly I never encountered it)
-* so I decided to mock the response to be able to go on with the remaining part of the challenge
-*/
 export function mockedFetchConversionRates() {
     return Promise.resolve({
         USD: 1.0615,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { mockedFetchConversionRates } from "../services/api";
+import { fetchConversionRates } from "../services/api";
 
 export function useGetRates() {
     const [ratesData, setRatesData] = useState<Record<string, number> | null>(null);
@@ -7,7 +7,7 @@ export function useGetRates() {
 
     useEffect(() => {
         setIsLoading(true);
-        mockedFetchConversionRates()
+        fetchConversionRates()
             .then(data => setRatesData(data))
             .finally(() => {
                 setIsLoading(false);
