@@ -8,7 +8,7 @@ export function useGetRates() {
     useEffect(() => {
         setIsLoading(true);
         mockedFetchConversionRates()
-            .then(text => setRatesData(text))
+            .then(data => setRatesData(data))
             .finally(() => {
                 setIsLoading(false);
             });

@@ -5,11 +5,11 @@ export interface ISelectOption extends Partial<DetailedHTMLProps<OptionHTMLAttri
     label: string;
 }
 
-export interface CurrencySelectProps extends Partial<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>> {
+export interface SelectProps extends Partial<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>> {
     options: ISelectOption[];
 }
 
-export const CurrencySelect: FC<CurrencySelectProps> = ({
+export const Select: FC<SelectProps> = ({
     value,
     options,
     ...rest

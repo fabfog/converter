@@ -1,83 +1,29 @@
-import { FC, useCallback, useMemo } from "react";
+import { FC } from "react";
+import { useConverterFields } from "../hooks/useConverterFields";
 import { useConverter } from "../hooks/useConverter";
 import { useGetRates } from "../hooks/useGetRates";
-import { convertRates } from "../services/conversions";
-import { CurrencySelect } from "./inputs";
+import { Error } from "../../atoms/error";
+import { Loader } from "../../atoms/loader";
+import { ConverterUI } from "../../organisms/converter";
 
-/**
- * If I had more time, I'd split this file into more files, specific for each component/type
- */
-export const Loader = () => {
-    // TODO maybe a better loader...
-    return <div>loading...</div>
-}
-
-
-export interface IRatesError { 
-    message: string;
-};
-
-export const RatesError = ({ message }: IRatesError) => {
-    // TODO maybe a better style...
-    return <p>{message}</p>
-}
-
-export interface ConverterProps {
+export interface IControllerProps {
     ratesMap: Record<string, number>;
     decimals?: number;
-};
+}
 
-export const Converter: FC<ConverterProps> = ({ ratesMap, decimals = 2 }) => {
-    const {
-        currencyFrom,
-        setCurrencyFrom,
-        currencyTo,
-        setCurrencyTo,
-        convertedAmount,
-        setConvertedAmount,
-        amount,
-        setAmount,
-    } = useConverter(ratesMap ?? {});
-
-    const ratesAsOptions = useMemo(() => {
-        return Object.keys(ratesMap ?? {})
-            .map(key => {
-                return { value: key, label: key };
-            })
-    }, [ratesMap]);
-
-    const onSubmit = useCallback(() => {
-        if (currencyFrom && currencyTo) {
-            setConvertedAmount(convertRates(ratesMap, currencyFrom, currencyTo, amount));
-        }
-    }, [ratesMap, currencyFrom, currencyTo, amount]);
-
-    const isSubmitDisabled = !currencyFrom || !currencyTo;
+export const Converter: FC<IControllerProps> = ({ ratesMap, ...rest }) => {
+    // better division between data and business logics hook
+    const fields = useConverterFields(ratesMap);
+    const converterController = useConverter(ratesMap);
 
     return (
-        <div className="row">
-            <CurrencySelect
-                value={currencyFrom ?? ''}
-                onChange={e => setCurrencyFrom(e.target.value)}
-                options={ratesAsOptions}
-                placeholder="from"
-            />
-            <input value={amount} onChange={e => setAmount(+e.target.value)} placeholder="amount" />
-            <p style={{ margin: 'auto 10px', verticalAlign: 'center' }}>to</p>
-            <CurrencySelect
-                value={currencyTo ?? ''}
-                onChange={e => setCurrencyTo(e.target.value)}
-                options={ratesAsOptions}
-                placeholder="to"
-            />
-            <div style={{ margin: 'auto 10px' }}>
-                <button disabled={isSubmitDisabled} onClick={onSubmit}>calculate</button>
-            </div>
-            <p style={{ marginLeft: 10 }}>
-                {(convertedAmount ?? 0).toFixed(decimals)}
-            </p>
-        </div>
-    );
+        <ConverterUI
+            ratesMap={ratesMap}
+            {...converterController}
+            {...fields}
+            {...rest}
+        />
+    )
 }
 
 
@@ -90,7 +36,7 @@ export const AppConverter: FC<AppConverterProps> = () => {
         return <Loader />
     }
     if (!ratesMap) {
-        return <RatesError message="missing rates" />
+        return <Error message="missing rates" />
     }
     return (
         <Converter ratesMap={ratesMap} />

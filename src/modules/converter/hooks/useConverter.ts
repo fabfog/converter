@@ -1,22 +1,22 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import { IConverterController } from "../../types/converter";
+import { convertRates } from "../services/conversions";
 
-export function useConverter(ratesMap: Record<string, number>) {
-    const defaultValue = Object.keys(ratesMap)[0];
-
-    const [currencyFrom, setCurrencyFrom] = useState<string | null>(defaultValue ?? null);
-    const [currencyTo, setCurrencyTo] = useState<string | null>(defaultValue ?? null);
-
-    const [amount, setAmount] = useState(0);
+export function useConverter(ratesMap: Record<string, number>): IConverterController {
     const [convertedAmount, setConvertedAmount] = useState(0);
 
+    const getCalculatedConvertedAmount = useCallback((currencyFrom: string, currencyTo: string, amount: number) => {
+        return convertRates(ratesMap, currencyFrom, currencyTo, amount);
+    }, [ratesMap]);
+
+    const updateConvertedAmount = useCallback((currencyFrom: string, currencyTo: string, amount: number) => {
+        setConvertedAmount(getCalculatedConvertedAmount(currencyFrom, currencyTo, amount));
+    }, [getCalculatedConvertedAmount]);
+
     return {
-        amount,
-        setAmount,
-        currencyFrom,
-        setCurrencyFrom,
-        currencyTo,
-        setCurrencyTo,
         convertedAmount,
         setConvertedAmount,
+        updateConvertedAmount,
+        getCalculatedConvertedAmount,
     }
 }
