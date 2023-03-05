@@ -20,3 +20,6 @@ https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
 ricorda che stiamo valutando la qualità che tu riesci a produrre in condizioni di tempo limitato.
 Se qualcosa non è chiaro, puoi sicuramente chiedere, ma cerca il più possibile di prendere decisioni autonomamente.
 
+# Instructions
+
+move env_sample to .env

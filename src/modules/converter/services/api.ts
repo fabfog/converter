@@ -1,24 +1,18 @@
+import { xmlToObjectRatesTransformer } from "./xmlToObjecRatesTransformer";
 
 export function fetchConversionRates() {
     // TODO move url from hard-coded to env variable
-    return fetch('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml', {
-        mode: 'no-cors',
+    return fetch(process.env.REACT_APP_RATES_URL!, {
         method: 'GET',
         headers: new Headers({
             'Accept': 'application/xml',
-            'content-type': 'application/x-www-form-urlencoded',
             'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Headers': 'Content-Type',
         })
     })
     .then(response => response.text())
-    // TODO transform response
+    .then(xmlToObjectRatesTransformer)
 }
 
-/* I had problems with the fetch (opaque response, honestly I never encountered it)
-* so I decided to mock the response to be able to go on with the remaining part of the challenge
-*/
 export function mockedFetchConversionRates() {
     return Promise.resolve({
         USD: 1.0615,
@@ -29,16 +23,16 @@ export function mockedFetchConversionRates() {
         GBP: 0.88530,
         HUF: 378.71,
         PLN: 4.7080,
-        RON:4.9235,
-        SEK:11.1430,
-        CHF:0.9958,
-        ISK:150.30,
-        NOK:11.0610,
-        TRY:20.0628,
-        AUD:1.5728,
-        BRL:5.5248,
-        CAD:1.4437,
-        CNY:7.3326,
+        RON: 4.9235,
+        SEK: 11.1430,
+        CHF: 0.9958,
+        ISK: 150.30,
+        NOK: 11.0610,
+        TRY: 20.0628,
+        AUD: 1.5728,
+        BRL: 5.5248,
+        CAD: 1.4437,
+        CNY: 7.3326,
         HKD: 8.3325,
         IDR: 16256.46,
         ILS: 3.8913,

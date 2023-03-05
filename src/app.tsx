@@ -1,9 +1,9 @@
 import React from 'react';
-import { Header } from './modules/header';
+import { Header } from './common/ui/molecules/header';
 
 import './app.css';
 import { AppConverter } from './modules/converter/components';
-import { CenteredLayout } from './modules/layouts';
+import { CenteredLayout } from './common/ui/templates';
 
 function App() {
   return (
